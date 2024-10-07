@@ -1,0 +1,26 @@
+{
+	"compileOnSave": true,
+	"compilerOptions": {
+		"baseUrl": ".",
+		"lib": ["esnext"],
+		"module": "Node16",
+		"moduleResolution": "Node16",
+		"target": "ESNext",
+		"outDir": "dist",
+		"sourceMap": true,
+		"alwaysStrict": true,
+		"removeComments": false,
+		"strictNullChecks": true,
+		"strict": true,
+		"useUnknownInCatchVariables": true,
+		"noImplicitOverride": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"exactOptionalPropertyTypes": true,
+		"noImplicitReturns": true,
+		"noUncheckedIndexedAccess": true,
+		"verbatimModuleSyntax": true,
+		"skipLibCheck": true
+	}
+}
