@@ -2,7 +2,10 @@
 	"compileOnSave": true,
 	"compilerOptions": {
 		"baseUrl": ".",
-		"lib": ["esnext"],
+		"lib": [
+			"esnext"
+		],
+		"declaration": true,
 		"module": "Node16",
 		"moduleResolution": "Node16",
 		"target": "ESNext",
@@ -21,6 +24,6 @@
 		"noImplicitReturns": true,
 		"noUncheckedIndexedAccess": true,
 		"verbatimModuleSyntax": true,
-		"skipLibCheck": true
+		"skipLibCheck": true,
 	}
 }

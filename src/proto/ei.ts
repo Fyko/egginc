@@ -4423,6 +4423,7 @@ export namespace ei {
                 boost_tokens_given?: number;
                 unclaimed_boost_tokens?: number;
                 gametime_until_next_boost_token?: number;
+                total_step_time?: number;
             }) {
                 super();
                 pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [12, 13, 14, 15, 17, 21, 18, 22], this.#one_of_decls);
@@ -4503,6 +4504,9 @@ export namespace ei {
                     }
                     if ("gametime_until_next_boost_token" in data && data.gametime_until_next_boost_token != undefined) {
                         this.gametime_until_next_boost_token = data.gametime_until_next_boost_token;
+                    }
+                    if ("total_step_time" in data && data.total_step_time != undefined) {
+                        this.total_step_time = data.total_step_time;
                     }
                 }
             }
@@ -4761,6 +4765,15 @@ export namespace ei {
             get has_gametime_until_next_boost_token() {
                 return pb_1.Message.getField(this, 29) != null;
             }
+            get total_step_time() {
+                return pb_1.Message.getFieldWithDefault(this, 32, 0) as number;
+            }
+            set total_step_time(value: number) {
+                pb_1.Message.setField(this, 32, value);
+            }
+            get has_total_step_time() {
+                return pb_1.Message.getField(this, 32) != null;
+            }
             static fromObject(data: {
                 egg_type?: Egg;
                 farm_type?: FarmType;
@@ -4793,6 +4806,7 @@ export namespace ei {
                 boost_tokens_given?: number;
                 unclaimed_boost_tokens?: number;
                 gametime_until_next_boost_token?: number;
+                total_step_time?: number;
             }): Simulation {
                 const message = new Simulation({
                     habs: data.habs,
@@ -4873,6 +4887,9 @@ export namespace ei {
                 if (data.gametime_until_next_boost_token != null) {
                     message.gametime_until_next_boost_token = data.gametime_until_next_boost_token;
                 }
+                if (data.total_step_time != null) {
+                    message.total_step_time = data.total_step_time;
+                }
                 return message;
             }
             toObject() {
@@ -4908,6 +4925,7 @@ export namespace ei {
                     boost_tokens_given?: number;
                     unclaimed_boost_tokens?: number;
                     gametime_until_next_boost_token?: number;
+                    total_step_time?: number;
                 } = {
                     habs: this.habs,
                     hab_population: this.hab_population,
@@ -4991,6 +5009,9 @@ export namespace ei {
                 if (this.gametime_until_next_boost_token != null) {
                     data.gametime_until_next_boost_token = this.gametime_until_next_boost_token;
                 }
+                if (this.total_step_time != null) {
+                    data.total_step_time = this.total_step_time;
+                }
                 return data;
             }
             serialize(): Uint8Array;
@@ -5059,6 +5080,8 @@ export namespace ei {
                     writer.writeUint32(27, this.unclaimed_boost_tokens);
                 if (this.has_gametime_until_next_boost_token)
                     writer.writeDouble(29, this.gametime_until_next_boost_token);
+                if (this.has_total_step_time)
+                    writer.writeDouble(32, this.total_step_time);
                 if (!w)
                     return writer.getResultBuffer();
             }
@@ -5160,6 +5183,9 @@ export namespace ei {
                             break;
                         case 29:
                             message.gametime_until_next_boost_token = reader.readDouble();
+                            break;
+                        case 32:
+                            message.total_step_time = reader.readDouble();
                             break;
                         default: reader.skipField();
                     }
@@ -11948,6 +11974,574 @@ export namespace ei {
             }
         }
     }
+    export class ContractSeasonGoal extends pb_1.Message {
+        #one_of_decls: number[][] = [];
+        constructor(data?: any[] | {
+            cxp?: number;
+            reward_type?: RewardType;
+            reward_sub_type?: string;
+            reward_amount?: number;
+        }) {
+            super();
+            pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+            if (!Array.isArray(data) && typeof data == "object") {
+                if ("cxp" in data && data.cxp != undefined) {
+                    this.cxp = data.cxp;
+                }
+                if ("reward_type" in data && data.reward_type != undefined) {
+                    this.reward_type = data.reward_type;
+                }
+                if ("reward_sub_type" in data && data.reward_sub_type != undefined) {
+                    this.reward_sub_type = data.reward_sub_type;
+                }
+                if ("reward_amount" in data && data.reward_amount != undefined) {
+                    this.reward_amount = data.reward_amount;
+                }
+            }
+        }
+        get cxp() {
+            return pb_1.Message.getFieldWithDefault(this, 1, 0) as number;
+        }
+        set cxp(value: number) {
+            pb_1.Message.setField(this, 1, value);
+        }
+        get has_cxp() {
+            return pb_1.Message.getField(this, 1) != null;
+        }
+        get reward_type() {
+            return pb_1.Message.getFieldWithDefault(this, 3, RewardType.CASH) as RewardType;
+        }
+        set reward_type(value: RewardType) {
+            pb_1.Message.setField(this, 3, value);
+        }
+        get has_reward_type() {
+            return pb_1.Message.getField(this, 3) != null;
+        }
+        get reward_sub_type() {
+            return pb_1.Message.getFieldWithDefault(this, 4, "") as string;
+        }
+        set reward_sub_type(value: string) {
+            pb_1.Message.setField(this, 4, value);
+        }
+        get has_reward_sub_type() {
+            return pb_1.Message.getField(this, 4) != null;
+        }
+        get reward_amount() {
+            return pb_1.Message.getFieldWithDefault(this, 5, 0) as number;
+        }
+        set reward_amount(value: number) {
+            pb_1.Message.setField(this, 5, value);
+        }
+        get has_reward_amount() {
+            return pb_1.Message.getField(this, 5) != null;
+        }
+        static fromObject(data: {
+            cxp?: number;
+            reward_type?: RewardType;
+            reward_sub_type?: string;
+            reward_amount?: number;
+        }): ContractSeasonGoal {
+            const message = new ContractSeasonGoal({});
+            if (data.cxp != null) {
+                message.cxp = data.cxp;
+            }
+            if (data.reward_type != null) {
+                message.reward_type = data.reward_type;
+            }
+            if (data.reward_sub_type != null) {
+                message.reward_sub_type = data.reward_sub_type;
+            }
+            if (data.reward_amount != null) {
+                message.reward_amount = data.reward_amount;
+            }
+            return message;
+        }
+        toObject() {
+            const data: {
+                cxp?: number;
+                reward_type?: RewardType;
+                reward_sub_type?: string;
+                reward_amount?: number;
+            } = {};
+            if (this.cxp != null) {
+                data.cxp = this.cxp;
+            }
+            if (this.reward_type != null) {
+                data.reward_type = this.reward_type;
+            }
+            if (this.reward_sub_type != null) {
+                data.reward_sub_type = this.reward_sub_type;
+            }
+            if (this.reward_amount != null) {
+                data.reward_amount = this.reward_amount;
+            }
+            return data;
+        }
+        serialize(): Uint8Array;
+        serialize(w: pb_1.BinaryWriter): void;
+        serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+            const writer = w || new pb_1.BinaryWriter();
+            if (this.has_cxp)
+                writer.writeDouble(1, this.cxp);
+            if (this.has_reward_type)
+                writer.writeEnum(3, this.reward_type);
+            if (this.has_reward_sub_type && this.reward_sub_type.length)
+                writer.writeString(4, this.reward_sub_type);
+            if (this.has_reward_amount)
+                writer.writeDouble(5, this.reward_amount);
+            if (!w)
+                return writer.getResultBuffer();
+        }
+        static deserialize(bytes: Uint8Array | pb_1.BinaryReader): ContractSeasonGoal {
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new ContractSeasonGoal();
+            while (reader.nextField()) {
+                if (reader.isEndGroup())
+                    break;
+                switch (reader.getFieldNumber()) {
+                    case 1:
+                        message.cxp = reader.readDouble();
+                        break;
+                    case 3:
+                        message.reward_type = reader.readEnum();
+                        break;
+                    case 4:
+                        message.reward_sub_type = reader.readString();
+                        break;
+                    case 5:
+                        message.reward_amount = reader.readDouble();
+                        break;
+                    default: reader.skipField();
+                }
+            }
+            return message;
+        }
+        serializeBinary(): Uint8Array {
+            return this.serialize();
+        }
+        static deserializeBinary(bytes: Uint8Array): ContractSeasonGoal {
+            return ContractSeasonGoal.deserialize(bytes);
+        }
+    }
+    export class ContractSeasonRewardConfirmationRequest extends pb_1.Message {
+        #one_of_decls: number[][] = [];
+        constructor(data?: any[] | {
+            rinfo?: BasicRequestInfo;
+            season_id?: string;
+            goal?: ContractSeasonGoal;
+        }) {
+            super();
+            pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+            if (!Array.isArray(data) && typeof data == "object") {
+                if ("rinfo" in data && data.rinfo != undefined) {
+                    this.rinfo = data.rinfo;
+                }
+                if ("season_id" in data && data.season_id != undefined) {
+                    this.season_id = data.season_id;
+                }
+                if ("goal" in data && data.goal != undefined) {
+                    this.goal = data.goal;
+                }
+            }
+        }
+        get rinfo() {
+            return pb_1.Message.getWrapperField(this, BasicRequestInfo, 1) as BasicRequestInfo;
+        }
+        set rinfo(value: BasicRequestInfo) {
+            pb_1.Message.setWrapperField(this, 1, value);
+        }
+        get has_rinfo() {
+            return pb_1.Message.getField(this, 1) != null;
+        }
+        get season_id() {
+            return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+        }
+        set season_id(value: string) {
+            pb_1.Message.setField(this, 2, value);
+        }
+        get has_season_id() {
+            return pb_1.Message.getField(this, 2) != null;
+        }
+        get goal() {
+            return pb_1.Message.getWrapperField(this, ContractSeasonGoal, 3) as ContractSeasonGoal;
+        }
+        set goal(value: ContractSeasonGoal) {
+            pb_1.Message.setWrapperField(this, 3, value);
+        }
+        get has_goal() {
+            return pb_1.Message.getField(this, 3) != null;
+        }
+        static fromObject(data: {
+            rinfo?: ReturnType<typeof BasicRequestInfo.prototype.toObject>;
+            season_id?: string;
+            goal?: ReturnType<typeof ContractSeasonGoal.prototype.toObject>;
+        }): ContractSeasonRewardConfirmationRequest {
+            const message = new ContractSeasonRewardConfirmationRequest({});
+            if (data.rinfo != null) {
+                message.rinfo = BasicRequestInfo.fromObject(data.rinfo);
+            }
+            if (data.season_id != null) {
+                message.season_id = data.season_id;
+            }
+            if (data.goal != null) {
+                message.goal = ContractSeasonGoal.fromObject(data.goal);
+            }
+            return message;
+        }
+        toObject() {
+            const data: {
+                rinfo?: ReturnType<typeof BasicRequestInfo.prototype.toObject>;
+                season_id?: string;
+                goal?: ReturnType<typeof ContractSeasonGoal.prototype.toObject>;
+            } = {};
+            if (this.rinfo != null) {
+                data.rinfo = this.rinfo.toObject();
+            }
+            if (this.season_id != null) {
+                data.season_id = this.season_id;
+            }
+            if (this.goal != null) {
+                data.goal = this.goal.toObject();
+            }
+            return data;
+        }
+        serialize(): Uint8Array;
+        serialize(w: pb_1.BinaryWriter): void;
+        serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+            const writer = w || new pb_1.BinaryWriter();
+            if (this.has_rinfo)
+                writer.writeMessage(1, this.rinfo, () => this.rinfo.serialize(writer));
+            if (this.has_season_id && this.season_id.length)
+                writer.writeString(2, this.season_id);
+            if (this.has_goal)
+                writer.writeMessage(3, this.goal, () => this.goal.serialize(writer));
+            if (!w)
+                return writer.getResultBuffer();
+        }
+        static deserialize(bytes: Uint8Array | pb_1.BinaryReader): ContractSeasonRewardConfirmationRequest {
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new ContractSeasonRewardConfirmationRequest();
+            while (reader.nextField()) {
+                if (reader.isEndGroup())
+                    break;
+                switch (reader.getFieldNumber()) {
+                    case 1:
+                        reader.readMessage(message.rinfo, () => message.rinfo = BasicRequestInfo.deserialize(reader));
+                        break;
+                    case 2:
+                        message.season_id = reader.readString();
+                        break;
+                    case 3:
+                        reader.readMessage(message.goal, () => message.goal = ContractSeasonGoal.deserialize(reader));
+                        break;
+                    default: reader.skipField();
+                }
+            }
+            return message;
+        }
+        serializeBinary(): Uint8Array {
+            return this.serialize();
+        }
+        static deserializeBinary(bytes: Uint8Array): ContractSeasonRewardConfirmationRequest {
+            return ContractSeasonRewardConfirmationRequest.deserialize(bytes);
+        }
+    }
+    export class ContractSeasonInfo extends pb_1.Message {
+        #one_of_decls: number[][] = [];
+        constructor(data?: any[] | {
+            id?: string;
+            name?: string;
+            start_time?: number;
+            grade_goals: ContractSeasonInfo.GoalSet[];
+        }) {
+            super();
+            pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [2], this.#one_of_decls);
+            if (!Array.isArray(data) && typeof data == "object") {
+                if ("id" in data && data.id != undefined) {
+                    this.id = data.id;
+                }
+                if ("name" in data && data.name != undefined) {
+                    this.name = data.name;
+                }
+                if ("start_time" in data && data.start_time != undefined) {
+                    this.start_time = data.start_time;
+                }
+                this.grade_goals = data.grade_goals;
+            }
+        }
+        get id() {
+            return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+        }
+        set id(value: string) {
+            pb_1.Message.setField(this, 1, value);
+        }
+        get has_id() {
+            return pb_1.Message.getField(this, 1) != null;
+        }
+        get name() {
+            return pb_1.Message.getFieldWithDefault(this, 3, "") as string;
+        }
+        set name(value: string) {
+            pb_1.Message.setField(this, 3, value);
+        }
+        get has_name() {
+            return pb_1.Message.getField(this, 3) != null;
+        }
+        get start_time() {
+            return pb_1.Message.getFieldWithDefault(this, 4, 0) as number;
+        }
+        set start_time(value: number) {
+            pb_1.Message.setField(this, 4, value);
+        }
+        get has_start_time() {
+            return pb_1.Message.getField(this, 4) != null;
+        }
+        get grade_goals() {
+            return pb_1.Message.getRepeatedWrapperField(this, ContractSeasonInfo.GoalSet, 2) as ContractSeasonInfo.GoalSet[];
+        }
+        set grade_goals(value: ContractSeasonInfo.GoalSet[]) {
+            pb_1.Message.setRepeatedWrapperField(this, 2, value);
+        }
+        static fromObject(data: {
+            id?: string;
+            name?: string;
+            start_time?: number;
+            grade_goals?: ReturnType<typeof ContractSeasonInfo.GoalSet.prototype.toObject>[];
+        }): ContractSeasonInfo {
+            const message = new ContractSeasonInfo({
+                grade_goals: data.grade_goals.map(item => ContractSeasonInfo.GoalSet.fromObject(item))
+            });
+            if (data.id != null) {
+                message.id = data.id;
+            }
+            if (data.name != null) {
+                message.name = data.name;
+            }
+            if (data.start_time != null) {
+                message.start_time = data.start_time;
+            }
+            return message;
+        }
+        toObject() {
+            const data: {
+                id?: string;
+                name?: string;
+                start_time?: number;
+                grade_goals?: ReturnType<typeof ContractSeasonInfo.GoalSet.prototype.toObject>[];
+            } = {};
+            if (this.id != null) {
+                data.id = this.id;
+            }
+            if (this.name != null) {
+                data.name = this.name;
+            }
+            if (this.start_time != null) {
+                data.start_time = this.start_time;
+            }
+            if (this.grade_goals != null) {
+                data.grade_goals = this.grade_goals.map((item: ContractSeasonInfo.GoalSet) => item.toObject());
+            }
+            return data;
+        }
+        serialize(): Uint8Array;
+        serialize(w: pb_1.BinaryWriter): void;
+        serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+            const writer = w || new pb_1.BinaryWriter();
+            if (this.has_id && this.id.length)
+                writer.writeString(1, this.id);
+            if (this.has_name && this.name.length)
+                writer.writeString(3, this.name);
+            if (this.has_start_time)
+                writer.writeDouble(4, this.start_time);
+            if (this.grade_goals.length)
+                writer.writeRepeatedMessage(2, this.grade_goals, (item: ContractSeasonInfo.GoalSet) => item.serialize(writer));
+            if (!w)
+                return writer.getResultBuffer();
+        }
+        static deserialize(bytes: Uint8Array | pb_1.BinaryReader): ContractSeasonInfo {
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new ContractSeasonInfo();
+            while (reader.nextField()) {
+                if (reader.isEndGroup())
+                    break;
+                switch (reader.getFieldNumber()) {
+                    case 1:
+                        message.id = reader.readString();
+                        break;
+                    case 3:
+                        message.name = reader.readString();
+                        break;
+                    case 4:
+                        message.start_time = reader.readDouble();
+                        break;
+                    case 2:
+                        reader.readMessage(message.grade_goals, () => pb_1.Message.addToRepeatedWrapperField(message, 2, ContractSeasonInfo.GoalSet.deserialize(reader), ContractSeasonInfo.GoalSet));
+                        break;
+                    default: reader.skipField();
+                }
+            }
+            return message;
+        }
+        serializeBinary(): Uint8Array {
+            return this.serialize();
+        }
+        static deserializeBinary(bytes: Uint8Array): ContractSeasonInfo {
+            return ContractSeasonInfo.deserialize(bytes);
+        }
+    }
+    export namespace ContractSeasonInfo {
+        export class GoalSet extends pb_1.Message {
+            #one_of_decls: number[][] = [];
+            constructor(data?: any[] | {
+                grade?: Contract.PlayerGrade;
+                goals: ContractSeasonGoal[];
+            }) {
+                super();
+                pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [2], this.#one_of_decls);
+                if (!Array.isArray(data) && typeof data == "object") {
+                    if ("grade" in data && data.grade != undefined) {
+                        this.grade = data.grade;
+                    }
+                    this.goals = data.goals;
+                }
+            }
+            get grade() {
+                return pb_1.Message.getFieldWithDefault(this, 1, Contract.PlayerGrade.GRADE_UNSET) as Contract.PlayerGrade;
+            }
+            set grade(value: Contract.PlayerGrade) {
+                pb_1.Message.setField(this, 1, value);
+            }
+            get has_grade() {
+                return pb_1.Message.getField(this, 1) != null;
+            }
+            get goals() {
+                return pb_1.Message.getRepeatedWrapperField(this, ContractSeasonGoal, 2) as ContractSeasonGoal[];
+            }
+            set goals(value: ContractSeasonGoal[]) {
+                pb_1.Message.setRepeatedWrapperField(this, 2, value);
+            }
+            static fromObject(data: {
+                grade?: Contract.PlayerGrade;
+                goals?: ReturnType<typeof ContractSeasonGoal.prototype.toObject>[];
+            }): GoalSet {
+                const message = new GoalSet({
+                    goals: data.goals.map(item => ContractSeasonGoal.fromObject(item))
+                });
+                if (data.grade != null) {
+                    message.grade = data.grade;
+                }
+                return message;
+            }
+            toObject() {
+                const data: {
+                    grade?: Contract.PlayerGrade;
+                    goals?: ReturnType<typeof ContractSeasonGoal.prototype.toObject>[];
+                } = {};
+                if (this.grade != null) {
+                    data.grade = this.grade;
+                }
+                if (this.goals != null) {
+                    data.goals = this.goals.map((item: ContractSeasonGoal) => item.toObject());
+                }
+                return data;
+            }
+            serialize(): Uint8Array;
+            serialize(w: pb_1.BinaryWriter): void;
+            serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+                const writer = w || new pb_1.BinaryWriter();
+                if (this.has_grade)
+                    writer.writeEnum(1, this.grade);
+                if (this.goals.length)
+                    writer.writeRepeatedMessage(2, this.goals, (item: ContractSeasonGoal) => item.serialize(writer));
+                if (!w)
+                    return writer.getResultBuffer();
+            }
+            static deserialize(bytes: Uint8Array | pb_1.BinaryReader): GoalSet {
+                const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new GoalSet();
+                while (reader.nextField()) {
+                    if (reader.isEndGroup())
+                        break;
+                    switch (reader.getFieldNumber()) {
+                        case 1:
+                            message.grade = reader.readEnum();
+                            break;
+                        case 2:
+                            reader.readMessage(message.goals, () => pb_1.Message.addToRepeatedWrapperField(message, 2, ContractSeasonGoal.deserialize(reader), ContractSeasonGoal));
+                            break;
+                        default: reader.skipField();
+                    }
+                }
+                return message;
+            }
+            serializeBinary(): Uint8Array {
+                return this.serialize();
+            }
+            static deserializeBinary(bytes: Uint8Array): GoalSet {
+                return GoalSet.deserialize(bytes);
+            }
+        }
+    }
+    export class ContractSeasonInfos extends pb_1.Message {
+        #one_of_decls: number[][] = [];
+        constructor(data?: any[] | {
+            infos: ContractSeasonInfo[];
+        }) {
+            super();
+            pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [1], this.#one_of_decls);
+            if (!Array.isArray(data) && typeof data == "object") {
+                this.infos = data.infos;
+            }
+        }
+        get infos() {
+            return pb_1.Message.getRepeatedWrapperField(this, ContractSeasonInfo, 1) as ContractSeasonInfo[];
+        }
+        set infos(value: ContractSeasonInfo[]) {
+            pb_1.Message.setRepeatedWrapperField(this, 1, value);
+        }
+        static fromObject(data: {
+            infos?: ReturnType<typeof ContractSeasonInfo.prototype.toObject>[];
+        }): ContractSeasonInfos {
+            const message = new ContractSeasonInfos({
+                infos: data.infos.map(item => ContractSeasonInfo.fromObject(item))
+            });
+            return message;
+        }
+        toObject() {
+            const data: {
+                infos?: ReturnType<typeof ContractSeasonInfo.prototype.toObject>[];
+            } = {};
+            if (this.infos != null) {
+                data.infos = this.infos.map((item: ContractSeasonInfo) => item.toObject());
+            }
+            return data;
+        }
+        serialize(): Uint8Array;
+        serialize(w: pb_1.BinaryWriter): void;
+        serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+            const writer = w || new pb_1.BinaryWriter();
+            if (this.infos.length)
+                writer.writeRepeatedMessage(1, this.infos, (item: ContractSeasonInfo) => item.serialize(writer));
+            if (!w)
+                return writer.getResultBuffer();
+        }
+        static deserialize(bytes: Uint8Array | pb_1.BinaryReader): ContractSeasonInfos {
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new ContractSeasonInfos();
+            while (reader.nextField()) {
+                if (reader.isEndGroup())
+                    break;
+                switch (reader.getFieldNumber()) {
+                    case 1:
+                        reader.readMessage(message.infos, () => pb_1.Message.addToRepeatedWrapperField(message, 1, ContractSeasonInfo.deserialize(reader), ContractSeasonInfo));
+                        break;
+                    default: reader.skipField();
+                }
+            }
+            return message;
+        }
+        serializeBinary(): Uint8Array {
+            return this.serialize();
+        }
+        static deserializeBinary(bytes: Uint8Array): ContractSeasonInfos {
+            return ContractSeasonInfos.deserialize(bytes);
+        }
+    }
     export class ContractPlayerInfo extends pb_1.Message {
         #one_of_decls: number[][] = [];
         constructor(data?: any[] | {
@@ -11965,9 +12559,10 @@ export namespace ei {
             last_evaluation_time?: number;
             last_evaluation_version?: string;
             unread_evaluations: ContractEvaluation[];
+            season_progress: ContractPlayerInfo.SeasonProgress[];
         }) {
             super();
-            pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [11, 6], this.#one_of_decls);
+            pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [11, 6, 15], this.#one_of_decls);
             if (!Array.isArray(data) && typeof data == "object") {
                 if ("grade" in data && data.grade != undefined) {
                     this.grade = data.grade;
@@ -12007,6 +12602,7 @@ export namespace ei {
                     this.last_evaluation_version = data.last_evaluation_version;
                 }
                 this.unread_evaluations = data.unread_evaluations;
+                this.season_progress = data.season_progress;
             }
         }
         get grade() {
@@ -12129,6 +12725,12 @@ export namespace ei {
         set unread_evaluations(value: ContractEvaluation[]) {
             pb_1.Message.setRepeatedWrapperField(this, 6, value);
         }
+        get season_progress() {
+            return pb_1.Message.getRepeatedWrapperField(this, ContractPlayerInfo.SeasonProgress, 15) as ContractPlayerInfo.SeasonProgress[];
+        }
+        set season_progress(value: ContractPlayerInfo.SeasonProgress[]) {
+            pb_1.Message.setRepeatedWrapperField(this, 15, value);
+        }
         static fromObject(data: {
             grade?: Contract.PlayerGrade;
             total_cxp?: number;
@@ -12144,10 +12746,12 @@ export namespace ei {
             last_evaluation_time?: number;
             last_evaluation_version?: string;
             unread_evaluations?: ReturnType<typeof ContractEvaluation.prototype.toObject>[];
+            season_progress?: ReturnType<typeof ContractPlayerInfo.SeasonProgress.prototype.toObject>[];
         }): ContractPlayerInfo {
             const message = new ContractPlayerInfo({
                 issues: data.issues,
-                unread_evaluations: data.unread_evaluations.map(item => ContractEvaluation.fromObject(item))
+                unread_evaluations: data.unread_evaluations.map(item => ContractEvaluation.fromObject(item)),
+                season_progress: data.season_progress.map(item => ContractPlayerInfo.SeasonProgress.fromObject(item))
             });
             if (data.grade != null) {
                 message.grade = data.grade;
@@ -12203,6 +12807,7 @@ export namespace ei {
                 last_evaluation_time?: number;
                 last_evaluation_version?: string;
                 unread_evaluations?: ReturnType<typeof ContractEvaluation.prototype.toObject>[];
+                season_progress?: ReturnType<typeof ContractPlayerInfo.SeasonProgress.prototype.toObject>[];
             } = {
                 issues: this.issues
             };
@@ -12245,6 +12850,9 @@ export namespace ei {
             if (this.unread_evaluations != null) {
                 data.unread_evaluations = this.unread_evaluations.map((item: ContractEvaluation) => item.toObject());
             }
+            if (this.season_progress != null) {
+                data.season_progress = this.season_progress.map((item: ContractPlayerInfo.SeasonProgress) => item.toObject());
+            }
             return data;
         }
         serialize(): Uint8Array;
@@ -12279,6 +12887,8 @@ export namespace ei {
                 writer.writeString(5, this.last_evaluation_version);
             if (this.unread_evaluations.length)
                 writer.writeRepeatedMessage(6, this.unread_evaluations, (item: ContractEvaluation) => item.serialize(writer));
+            if (this.season_progress.length)
+                writer.writeRepeatedMessage(15, this.season_progress, (item: ContractPlayerInfo.SeasonProgress) => item.serialize(writer));
             if (!w)
                 return writer.getResultBuffer();
         }
@@ -12330,6 +12940,9 @@ export namespace ei {
                     case 6:
                         reader.readMessage(message.unread_evaluations, () => pb_1.Message.addToRepeatedWrapperField(message, 6, ContractEvaluation.deserialize(reader), ContractEvaluation));
                         break;
+                    case 15:
+                        reader.readMessage(message.season_progress, () => pb_1.Message.addToRepeatedWrapperField(message, 15, ContractPlayerInfo.SeasonProgress.deserialize(reader), ContractPlayerInfo.SeasonProgress));
+                        break;
                     default: reader.skipField();
                 }
             }
@@ -12349,6 +12962,180 @@ export namespace ei {
             OUT_OF_DATE = 2,
             INCOMPLETE = 4,
             COMPLETE = 3
+        }
+        export class SeasonProgress extends pb_1.Message {
+            #one_of_decls: number[][] = [];
+            constructor(data?: any[] | {
+                season_id?: string;
+                active_DEP?: boolean;
+                starting_grade?: Contract.PlayerGrade;
+                total_cxp?: number;
+                cxp_last_reward_given?: number;
+            }) {
+                super();
+                pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+                if (!Array.isArray(data) && typeof data == "object") {
+                    if ("season_id" in data && data.season_id != undefined) {
+                        this.season_id = data.season_id;
+                    }
+                    if ("active_DEP" in data && data.active_DEP != undefined) {
+                        this.active_DEP = data.active_DEP;
+                    }
+                    if ("starting_grade" in data && data.starting_grade != undefined) {
+                        this.starting_grade = data.starting_grade;
+                    }
+                    if ("total_cxp" in data && data.total_cxp != undefined) {
+                        this.total_cxp = data.total_cxp;
+                    }
+                    if ("cxp_last_reward_given" in data && data.cxp_last_reward_given != undefined) {
+                        this.cxp_last_reward_given = data.cxp_last_reward_given;
+                    }
+                }
+            }
+            get season_id() {
+                return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+            }
+            set season_id(value: string) {
+                pb_1.Message.setField(this, 1, value);
+            }
+            get has_season_id() {
+                return pb_1.Message.getField(this, 1) != null;
+            }
+            get active_DEP() {
+                return pb_1.Message.getFieldWithDefault(this, 2, false) as boolean;
+            }
+            set active_DEP(value: boolean) {
+                pb_1.Message.setField(this, 2, value);
+            }
+            get has_active_DEP() {
+                return pb_1.Message.getField(this, 2) != null;
+            }
+            get starting_grade() {
+                return pb_1.Message.getFieldWithDefault(this, 3, Contract.PlayerGrade.GRADE_UNSET) as Contract.PlayerGrade;
+            }
+            set starting_grade(value: Contract.PlayerGrade) {
+                pb_1.Message.setField(this, 3, value);
+            }
+            get has_starting_grade() {
+                return pb_1.Message.getField(this, 3) != null;
+            }
+            get total_cxp() {
+                return pb_1.Message.getFieldWithDefault(this, 4, 0) as number;
+            }
+            set total_cxp(value: number) {
+                pb_1.Message.setField(this, 4, value);
+            }
+            get has_total_cxp() {
+                return pb_1.Message.getField(this, 4) != null;
+            }
+            get cxp_last_reward_given() {
+                return pb_1.Message.getFieldWithDefault(this, 5, 0) as number;
+            }
+            set cxp_last_reward_given(value: number) {
+                pb_1.Message.setField(this, 5, value);
+            }
+            get has_cxp_last_reward_given() {
+                return pb_1.Message.getField(this, 5) != null;
+            }
+            static fromObject(data: {
+                season_id?: string;
+                active_DEP?: boolean;
+                starting_grade?: Contract.PlayerGrade;
+                total_cxp?: number;
+                cxp_last_reward_given?: number;
+            }): SeasonProgress {
+                const message = new SeasonProgress({});
+                if (data.season_id != null) {
+                    message.season_id = data.season_id;
+                }
+                if (data.active_DEP != null) {
+                    message.active_DEP = data.active_DEP;
+                }
+                if (data.starting_grade != null) {
+                    message.starting_grade = data.starting_grade;
+                }
+                if (data.total_cxp != null) {
+                    message.total_cxp = data.total_cxp;
+                }
+                if (data.cxp_last_reward_given != null) {
+                    message.cxp_last_reward_given = data.cxp_last_reward_given;
+                }
+                return message;
+            }
+            toObject() {
+                const data: {
+                    season_id?: string;
+                    active_DEP?: boolean;
+                    starting_grade?: Contract.PlayerGrade;
+                    total_cxp?: number;
+                    cxp_last_reward_given?: number;
+                } = {};
+                if (this.season_id != null) {
+                    data.season_id = this.season_id;
+                }
+                if (this.active_DEP != null) {
+                    data.active_DEP = this.active_DEP;
+                }
+                if (this.starting_grade != null) {
+                    data.starting_grade = this.starting_grade;
+                }
+                if (this.total_cxp != null) {
+                    data.total_cxp = this.total_cxp;
+                }
+                if (this.cxp_last_reward_given != null) {
+                    data.cxp_last_reward_given = this.cxp_last_reward_given;
+                }
+                return data;
+            }
+            serialize(): Uint8Array;
+            serialize(w: pb_1.BinaryWriter): void;
+            serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+                const writer = w || new pb_1.BinaryWriter();
+                if (this.has_season_id && this.season_id.length)
+                    writer.writeString(1, this.season_id);
+                if (this.has_active_DEP)
+                    writer.writeBool(2, this.active_DEP);
+                if (this.has_starting_grade)
+                    writer.writeEnum(3, this.starting_grade);
+                if (this.has_total_cxp)
+                    writer.writeDouble(4, this.total_cxp);
+                if (this.has_cxp_last_reward_given)
+                    writer.writeDouble(5, this.cxp_last_reward_given);
+                if (!w)
+                    return writer.getResultBuffer();
+            }
+            static deserialize(bytes: Uint8Array | pb_1.BinaryReader): SeasonProgress {
+                const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new SeasonProgress();
+                while (reader.nextField()) {
+                    if (reader.isEndGroup())
+                        break;
+                    switch (reader.getFieldNumber()) {
+                        case 1:
+                            message.season_id = reader.readString();
+                            break;
+                        case 2:
+                            message.active_DEP = reader.readBool();
+                            break;
+                        case 3:
+                            message.starting_grade = reader.readEnum();
+                            break;
+                        case 4:
+                            message.total_cxp = reader.readDouble();
+                            break;
+                        case 5:
+                            message.cxp_last_reward_given = reader.readDouble();
+                            break;
+                        default: reader.skipField();
+                    }
+                }
+                return message;
+            }
+            serializeBinary(): Uint8Array {
+                return this.serialize();
+            }
+            static deserializeBinary(bytes: Uint8Array): SeasonProgress {
+                return SeasonProgress.deserialize(bytes);
+            }
         }
     }
     export class ContractEvaluation extends pb_1.Message {
@@ -12383,6 +13170,7 @@ export namespace ei {
             counted_in_season?: boolean;
             season_id?: string;
             time_cheats?: number;
+            extra_players?: number;
             issues: ContractEvaluation.PoorBehavior[];
             notes: string[];
             version?: string;
@@ -12478,6 +13266,9 @@ export namespace ei {
                 }
                 if ("time_cheats" in data && data.time_cheats != undefined) {
                     this.time_cheats = data.time_cheats;
+                }
+                if ("extra_players" in data && data.extra_players != undefined) {
+                    this.extra_players = data.extra_players;
                 }
                 this.issues = data.issues;
                 this.notes = data.notes;
@@ -12753,6 +13544,15 @@ export namespace ei {
         get has_time_cheats() {
             return pb_1.Message.getField(this, 27) != null;
         }
+        get extra_players() {
+            return pb_1.Message.getFieldWithDefault(this, 30, 0) as number;
+        }
+        set extra_players(value: number) {
+            pb_1.Message.setField(this, 30, value);
+        }
+        get has_extra_players() {
+            return pb_1.Message.getField(this, 30) != null;
+        }
         get issues() {
             return pb_1.Message.getFieldWithDefault(this, 19, []) as ContractEvaluation.PoorBehavior[];
         }
@@ -12822,6 +13622,7 @@ export namespace ei {
             counted_in_season?: boolean;
             season_id?: string;
             time_cheats?: number;
+            extra_players?: number;
             issues: ContractEvaluation.PoorBehavior[];
             notes: string[];
             version?: string;
@@ -12919,6 +13720,9 @@ export namespace ei {
             if (data.time_cheats != null) {
                 message.time_cheats = data.time_cheats;
             }
+            if (data.extra_players != null) {
+                message.extra_players = data.extra_players;
+            }
             if (data.version != null) {
                 message.version = data.version;
             }
@@ -12961,6 +13765,7 @@ export namespace ei {
                 counted_in_season?: boolean;
                 season_id?: string;
                 time_cheats?: number;
+                extra_players?: number;
                 issues: ContractEvaluation.PoorBehavior[];
                 notes: string[];
                 version?: string;
@@ -13057,6 +13862,9 @@ export namespace ei {
             if (this.time_cheats != null) {
                 data.time_cheats = this.time_cheats;
             }
+            if (this.extra_players != null) {
+                data.extra_players = this.extra_players;
+            }
             if (this.version != null) {
                 data.version = this.version;
             }
@@ -13130,6 +13938,8 @@ export namespace ei {
                 writer.writeString(21, this.season_id);
             if (this.has_time_cheats)
                 writer.writeUint32(27, this.time_cheats);
+            if (this.has_extra_players)
+                writer.writeUint32(30, this.extra_players);
             if (this.issues.length)
                 writer.writeRepeatedEnum(19, this.issues);
             if (this.notes.length)
@@ -13235,6 +14045,9 @@ export namespace ei {
                         break;
                     case 27:
                         message.time_cheats = reader.readUint32();
+                        break;
+                    case 30:
+                        message.extra_players = reader.readUint32();
                         break;
                     case 19:
                         pb_1.Message.addToRepeatedField(message, 19, reader.readEnum());
@@ -13633,6 +14446,7 @@ export namespace ei {
             #one_of_decls: number[][] = [];
             constructor(data?: any[] | {
                 contribution?: number;
+                total_step_time?: number;
                 last_contribution_time?: number;
                 finalized?: boolean;
                 soul_power?: number;
@@ -13645,6 +14459,9 @@ export namespace ei {
                 if (!Array.isArray(data) && typeof data == "object") {
                     if ("contribution" in data && data.contribution != undefined) {
                         this.contribution = data.contribution;
+                    }
+                    if ("total_step_time" in data && data.total_step_time != undefined) {
+                        this.total_step_time = data.total_step_time;
                     }
                     if ("last_contribution_time" in data && data.last_contribution_time != undefined) {
                         this.last_contribution_time = data.last_contribution_time;
@@ -13674,6 +14491,15 @@ export namespace ei {
             }
             get has_contribution() {
                 return pb_1.Message.getField(this, 1) != null;
+            }
+            get total_step_time() {
+                return pb_1.Message.getFieldWithDefault(this, 8, 0) as number;
+            }
+            set total_step_time(value: number) {
+                pb_1.Message.setField(this, 8, value);
+            }
+            get has_total_step_time() {
+                return pb_1.Message.getField(this, 8) != null;
             }
             get last_contribution_time() {
                 return pb_1.Message.getFieldWithDefault(this, 6, 0) as number;
@@ -13731,6 +14557,7 @@ export namespace ei {
             }
             static fromObject(data: {
                 contribution?: number;
+                total_step_time?: number;
                 last_contribution_time?: number;
                 finalized?: boolean;
                 soul_power?: number;
@@ -13741,6 +14568,9 @@ export namespace ei {
                 const message = new ContributorSnapshot({});
                 if (data.contribution != null) {
                     message.contribution = data.contribution;
+                }
+                if (data.total_step_time != null) {
+                    message.total_step_time = data.total_step_time;
                 }
                 if (data.last_contribution_time != null) {
                     message.last_contribution_time = data.last_contribution_time;
@@ -13765,6 +14595,7 @@ export namespace ei {
             toObject() {
                 const data: {
                     contribution?: number;
+                    total_step_time?: number;
                     last_contribution_time?: number;
                     finalized?: boolean;
                     soul_power?: number;
@@ -13774,6 +14605,9 @@ export namespace ei {
                 } = {};
                 if (this.contribution != null) {
                     data.contribution = this.contribution;
+                }
+                if (this.total_step_time != null) {
+                    data.total_step_time = this.total_step_time;
                 }
                 if (this.last_contribution_time != null) {
                     data.last_contribution_time = this.last_contribution_time;
@@ -13801,6 +14635,8 @@ export namespace ei {
                 const writer = w || new pb_1.BinaryWriter();
                 if (this.has_contribution)
                     writer.writeDouble(1, this.contribution);
+                if (this.has_total_step_time)
+                    writer.writeDouble(8, this.total_step_time);
                 if (this.has_last_contribution_time)
                     writer.writeDouble(6, this.last_contribution_time);
                 if (this.has_finalized)
@@ -13824,6 +14660,9 @@ export namespace ei {
                     switch (reader.getFieldNumber()) {
                         case 1:
                             message.contribution = reader.readDouble();
+                            break;
+                        case 8:
+                            message.total_step_time = reader.readDouble();
                             break;
                         case 6:
                             message.last_contribution_time = reader.readDouble();
@@ -15003,6 +15842,7 @@ export namespace ei {
             total_eop?: number;
             server_time?: number;
             max_eop?: number;
+            current_season?: ContractSeasonInfo;
         }) {
             super();
             pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [1, 6], this.#one_of_decls);
@@ -15020,6 +15860,9 @@ export namespace ei {
                 }
                 if ("max_eop" in data && data.max_eop != undefined) {
                     this.max_eop = data.max_eop;
+                }
+                if ("current_season" in data && data.current_season != undefined) {
+                    this.current_season = data.current_season;
                 }
             }
         }
@@ -15071,6 +15914,15 @@ export namespace ei {
         get has_max_eop() {
             return pb_1.Message.getField(this, 3) != null;
         }
+        get current_season() {
+            return pb_1.Message.getWrapperField(this, ContractSeasonInfo, 7) as ContractSeasonInfo;
+        }
+        set current_season(value: ContractSeasonInfo) {
+            pb_1.Message.setWrapperField(this, 7, value);
+        }
+        get has_current_season() {
+            return pb_1.Message.getField(this, 7) != null;
+        }
         static fromObject(data: {
             contracts?: ReturnType<typeof Contract.prototype.toObject>[];
             custom_eggs?: ReturnType<typeof CustomEgg.prototype.toObject>[];
@@ -15078,6 +15930,7 @@ export namespace ei {
             total_eop?: number;
             server_time?: number;
             max_eop?: number;
+            current_season?: ReturnType<typeof ContractSeasonInfo.prototype.toObject>;
         }): ContractsResponse {
             const message = new ContractsResponse({
                 contracts: data.contracts.map(item => Contract.fromObject(item)),
@@ -15095,6 +15948,9 @@ export namespace ei {
             if (data.max_eop != null) {
                 message.max_eop = data.max_eop;
             }
+            if (data.current_season != null) {
+                message.current_season = ContractSeasonInfo.fromObject(data.current_season);
+            }
             return message;
         }
         toObject() {
@@ -15105,6 +15961,7 @@ export namespace ei {
                 total_eop?: number;
                 server_time?: number;
                 max_eop?: number;
+                current_season?: ReturnType<typeof ContractSeasonInfo.prototype.toObject>;
             } = {};
             if (this.contracts != null) {
                 data.contracts = this.contracts.map((item: Contract) => item.toObject());
@@ -15124,6 +15981,9 @@ export namespace ei {
             if (this.max_eop != null) {
                 data.max_eop = this.max_eop;
             }
+            if (this.current_season != null) {
+                data.current_season = this.current_season.toObject();
+            }
             return data;
         }
         serialize(): Uint8Array;
@@ -15142,6 +16002,8 @@ export namespace ei {
                 writer.writeDouble(2, this.server_time);
             if (this.has_max_eop)
                 writer.writeUint32(3, this.max_eop);
+            if (this.has_current_season)
+                writer.writeMessage(7, this.current_season, () => this.current_season.serialize(writer));
             if (!w)
                 return writer.getResultBuffer();
         }
@@ -15169,6 +16031,9 @@ export namespace ei {
                     case 3:
                         message.max_eop = reader.readUint32();
                         break;
+                    case 7:
+                        reader.readMessage(message.current_season, () => message.current_season = ContractSeasonInfo.deserialize(reader));
+                        break;
                     default: reader.skipField();
                 }
             }
@@ -15189,6 +16054,7 @@ export namespace ei {
             coop_identifier?: string;
             user_id?: string;
             client_version?: number;
+            client_timestamp?: number;
         }) {
             super();
             pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
@@ -15207,6 +16073,9 @@ export namespace ei {
                 }
                 if ("client_version" in data && data.client_version != undefined) {
                     this.client_version = data.client_version;
+                }
+                if ("client_timestamp" in data && data.client_timestamp != undefined) {
+                    this.client_timestamp = data.client_timestamp;
                 }
             }
         }
@@ -15255,12 +16124,22 @@ export namespace ei {
         get has_client_version() {
             return pb_1.Message.getField(this, 4) != null;
         }
+        get client_timestamp() {
+            return pb_1.Message.getFieldWithDefault(this, 6, 0) as number;
+        }
+        set client_timestamp(value: number) {
+            pb_1.Message.setField(this, 6, value);
+        }
+        get has_client_timestamp() {
+            return pb_1.Message.getField(this, 6) != null;
+        }
         static fromObject(data: {
             rinfo?: ReturnType<typeof BasicRequestInfo.prototype.toObject>;
             contract_identifier?: string;
             coop_identifier?: string;
             user_id?: string;
             client_version?: number;
+            client_timestamp?: number;
         }): ContractCoopStatusRequest {
             const message = new ContractCoopStatusRequest({});
             if (data.rinfo != null) {
@@ -15278,6 +16157,9 @@ export namespace ei {
             if (data.client_version != null) {
                 message.client_version = data.client_version;
             }
+            if (data.client_timestamp != null) {
+                message.client_timestamp = data.client_timestamp;
+            }
             return message;
         }
         toObject() {
@@ -15287,6 +16169,7 @@ export namespace ei {
                 coop_identifier?: string;
                 user_id?: string;
                 client_version?: number;
+                client_timestamp?: number;
             } = {};
             if (this.rinfo != null) {
                 data.rinfo = this.rinfo.toObject();
@@ -15302,6 +16185,9 @@ export namespace ei {
             }
             if (this.client_version != null) {
                 data.client_version = this.client_version;
+            }
+            if (this.client_timestamp != null) {
+                data.client_timestamp = this.client_timestamp;
             }
             return data;
         }
@@ -15319,6 +16205,8 @@ export namespace ei {
                 writer.writeString(3, this.user_id);
             if (this.has_client_version)
                 writer.writeUint32(4, this.client_version);
+            if (this.has_client_timestamp)
+                writer.writeDouble(6, this.client_timestamp);
             if (!w)
                 return writer.getResultBuffer();
         }
@@ -15342,6 +16230,9 @@ export namespace ei {
                         break;
                     case 4:
                         message.client_version = reader.readUint32();
+                        break;
+                    case 6:
+                        message.client_timestamp = reader.readDouble();
                         break;
                     default: reader.skipField();
                 }
@@ -16111,8 +17002,8 @@ export namespace ei {
             cleared_for_exit?: boolean;
             gifts: ContractCoopStatusResponse.CoopGift[];
             chicken_runs: ContractCoopStatusResponse.ChickenRun[];
-            local_timestamp?: number;
-            last_sync?: number;
+            client_timestamp?: number;
+            last_sync_DEP?: number;
         }) {
             super();
             pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [4, 11, 13], this.#one_of_decls);
@@ -16162,11 +17053,11 @@ export namespace ei {
                 }
                 this.gifts = data.gifts;
                 this.chicken_runs = data.chicken_runs;
-                if ("local_timestamp" in data && data.local_timestamp != undefined) {
-                    this.local_timestamp = data.local_timestamp;
+                if ("client_timestamp" in data && data.client_timestamp != undefined) {
+                    this.client_timestamp = data.client_timestamp;
                 }
-                if ("last_sync" in data && data.last_sync != undefined) {
-                    this.last_sync = data.last_sync;
+                if ("last_sync_DEP" in data && data.last_sync_DEP != undefined) {
+                    this.last_sync_DEP = data.last_sync_DEP;
                 }
             }
         }
@@ -16314,22 +17205,22 @@ export namespace ei {
         set chicken_runs(value: ContractCoopStatusResponse.ChickenRun[]) {
             pb_1.Message.setRepeatedWrapperField(this, 13, value);
         }
-        get local_timestamp() {
+        get client_timestamp() {
             return pb_1.Message.getFieldWithDefault(this, 12, 0) as number;
         }
-        set local_timestamp(value: number) {
+        set client_timestamp(value: number) {
             pb_1.Message.setField(this, 12, value);
         }
-        get has_local_timestamp() {
+        get has_client_timestamp() {
             return pb_1.Message.getField(this, 12) != null;
         }
-        get last_sync() {
+        get last_sync_DEP() {
             return pb_1.Message.getFieldWithDefault(this, 18, 0) as number;
         }
-        set last_sync(value: number) {
+        set last_sync_DEP(value: number) {
             pb_1.Message.setField(this, 18, value);
         }
-        get has_last_sync() {
+        get has_last_sync_DEP() {
             return pb_1.Message.getField(this, 18) != null;
         }
         static fromObject(data: {
@@ -16350,8 +17241,8 @@ export namespace ei {
             cleared_for_exit?: boolean;
             gifts?: ReturnType<typeof ContractCoopStatusResponse.CoopGift.prototype.toObject>[];
             chicken_runs?: ReturnType<typeof ContractCoopStatusResponse.ChickenRun.prototype.toObject>[];
-            local_timestamp?: number;
-            last_sync?: number;
+            client_timestamp?: number;
+            last_sync_DEP?: number;
         }): ContractCoopStatusResponse {
             const message = new ContractCoopStatusResponse({
                 contributors: data.contributors.map(item => ContractCoopStatusResponse.ContributionInfo.fromObject(item)),
@@ -16400,11 +17291,11 @@ export namespace ei {
             if (data.cleared_for_exit != null) {
                 message.cleared_for_exit = data.cleared_for_exit;
             }
-            if (data.local_timestamp != null) {
-                message.local_timestamp = data.local_timestamp;
+            if (data.client_timestamp != null) {
+                message.client_timestamp = data.client_timestamp;
             }
-            if (data.last_sync != null) {
-                message.last_sync = data.last_sync;
+            if (data.last_sync_DEP != null) {
+                message.last_sync_DEP = data.last_sync_DEP;
             }
             return message;
         }
@@ -16427,8 +17318,8 @@ export namespace ei {
                 cleared_for_exit?: boolean;
                 gifts?: ReturnType<typeof ContractCoopStatusResponse.CoopGift.prototype.toObject>[];
                 chicken_runs?: ReturnType<typeof ContractCoopStatusResponse.ChickenRun.prototype.toObject>[];
-                local_timestamp?: number;
-                last_sync?: number;
+                client_timestamp?: number;
+                last_sync_DEP?: number;
             } = {};
             if (this.response_status != null) {
                 data.response_status = this.response_status;
@@ -16481,11 +17372,11 @@ export namespace ei {
             if (this.chicken_runs != null) {
                 data.chicken_runs = this.chicken_runs.map((item: ContractCoopStatusResponse.ChickenRun) => item.toObject());
             }
-            if (this.local_timestamp != null) {
-                data.local_timestamp = this.local_timestamp;
+            if (this.client_timestamp != null) {
+                data.client_timestamp = this.client_timestamp;
             }
-            if (this.last_sync != null) {
-                data.last_sync = this.last_sync;
+            if (this.last_sync_DEP != null) {
+                data.last_sync_DEP = this.last_sync_DEP;
             }
             return data;
         }
@@ -16527,10 +17418,10 @@ export namespace ei {
                 writer.writeRepeatedMessage(11, this.gifts, (item: ContractCoopStatusResponse.CoopGift) => item.serialize(writer));
             if (this.chicken_runs.length)
                 writer.writeRepeatedMessage(13, this.chicken_runs, (item: ContractCoopStatusResponse.ChickenRun) => item.serialize(writer));
-            if (this.has_local_timestamp)
-                writer.writeDouble(12, this.local_timestamp);
-            if (this.has_last_sync)
-                writer.writeDouble(18, this.last_sync);
+            if (this.has_client_timestamp)
+                writer.writeDouble(12, this.client_timestamp);
+            if (this.has_last_sync_DEP)
+                writer.writeDouble(18, this.last_sync_DEP);
             if (!w)
                 return writer.getResultBuffer();
         }
@@ -16592,10 +17483,10 @@ export namespace ei {
                         reader.readMessage(message.chicken_runs, () => pb_1.Message.addToRepeatedWrapperField(message, 13, ContractCoopStatusResponse.ChickenRun.deserialize(reader), ContractCoopStatusResponse.ChickenRun));
                         break;
                     case 12:
-                        message.local_timestamp = reader.readDouble();
+                        message.client_timestamp = reader.readDouble();
                         break;
                     case 18:
-                        message.last_sync = reader.readDouble();
+                        message.last_sync_DEP = reader.readDouble();
                         break;
                     default: reader.skipField();
                 }
@@ -21861,6 +22752,506 @@ export namespace ei {
             PRIVATE = 4
         }
     }
+    export class IdleSessionSummary extends pb_1.Message {
+        #one_of_decls: number[][] = [];
+        constructor(data?: any[] | {
+            success?: boolean;
+            time_away?: number;
+            time_simulated?: number;
+            silos_owned?: number;
+            average_elr?: number;
+            average_msr?: number;
+            average_egg_delivery_rate?: number;
+            last_egg_delivery_rate?: number;
+            eggs_delivered?: number;
+            stats: IdleSessionSummary.Stat[];
+            farm_index?: number;
+        }) {
+            super();
+            pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [10], this.#one_of_decls);
+            if (!Array.isArray(data) && typeof data == "object") {
+                if ("success" in data && data.success != undefined) {
+                    this.success = data.success;
+                }
+                if ("time_away" in data && data.time_away != undefined) {
+                    this.time_away = data.time_away;
+                }
+                if ("time_simulated" in data && data.time_simulated != undefined) {
+                    this.time_simulated = data.time_simulated;
+                }
+                if ("silos_owned" in data && data.silos_owned != undefined) {
+                    this.silos_owned = data.silos_owned;
+                }
+                if ("average_elr" in data && data.average_elr != undefined) {
+                    this.average_elr = data.average_elr;
+                }
+                if ("average_msr" in data && data.average_msr != undefined) {
+                    this.average_msr = data.average_msr;
+                }
+                if ("average_egg_delivery_rate" in data && data.average_egg_delivery_rate != undefined) {
+                    this.average_egg_delivery_rate = data.average_egg_delivery_rate;
+                }
+                if ("last_egg_delivery_rate" in data && data.last_egg_delivery_rate != undefined) {
+                    this.last_egg_delivery_rate = data.last_egg_delivery_rate;
+                }
+                if ("eggs_delivered" in data && data.eggs_delivered != undefined) {
+                    this.eggs_delivered = data.eggs_delivered;
+                }
+                this.stats = data.stats;
+                if ("farm_index" in data && data.farm_index != undefined) {
+                    this.farm_index = data.farm_index;
+                }
+            }
+        }
+        get success() {
+            return pb_1.Message.getFieldWithDefault(this, 11, false) as boolean;
+        }
+        set success(value: boolean) {
+            pb_1.Message.setField(this, 11, value);
+        }
+        get has_success() {
+            return pb_1.Message.getField(this, 11) != null;
+        }
+        get time_away() {
+            return pb_1.Message.getFieldWithDefault(this, 1, 0) as number;
+        }
+        set time_away(value: number) {
+            pb_1.Message.setField(this, 1, value);
+        }
+        get has_time_away() {
+            return pb_1.Message.getField(this, 1) != null;
+        }
+        get time_simulated() {
+            return pb_1.Message.getFieldWithDefault(this, 2, 0) as number;
+        }
+        set time_simulated(value: number) {
+            pb_1.Message.setField(this, 2, value);
+        }
+        get has_time_simulated() {
+            return pb_1.Message.getField(this, 2) != null;
+        }
+        get silos_owned() {
+            return pb_1.Message.getFieldWithDefault(this, 3, 0) as number;
+        }
+        set silos_owned(value: number) {
+            pb_1.Message.setField(this, 3, value);
+        }
+        get has_silos_owned() {
+            return pb_1.Message.getField(this, 3) != null;
+        }
+        get average_elr() {
+            return pb_1.Message.getFieldWithDefault(this, 4, 0) as number;
+        }
+        set average_elr(value: number) {
+            pb_1.Message.setField(this, 4, value);
+        }
+        get has_average_elr() {
+            return pb_1.Message.getField(this, 4) != null;
+        }
+        get average_msr() {
+            return pb_1.Message.getFieldWithDefault(this, 5, 0) as number;
+        }
+        set average_msr(value: number) {
+            pb_1.Message.setField(this, 5, value);
+        }
+        get has_average_msr() {
+            return pb_1.Message.getField(this, 5) != null;
+        }
+        get average_egg_delivery_rate() {
+            return pb_1.Message.getFieldWithDefault(this, 6, 0) as number;
+        }
+        set average_egg_delivery_rate(value: number) {
+            pb_1.Message.setField(this, 6, value);
+        }
+        get has_average_egg_delivery_rate() {
+            return pb_1.Message.getField(this, 6) != null;
+        }
+        get last_egg_delivery_rate() {
+            return pb_1.Message.getFieldWithDefault(this, 8, 0) as number;
+        }
+        set last_egg_delivery_rate(value: number) {
+            pb_1.Message.setField(this, 8, value);
+        }
+        get has_last_egg_delivery_rate() {
+            return pb_1.Message.getField(this, 8) != null;
+        }
+        get eggs_delivered() {
+            return pb_1.Message.getFieldWithDefault(this, 9, 0) as number;
+        }
+        set eggs_delivered(value: number) {
+            pb_1.Message.setField(this, 9, value);
+        }
+        get has_eggs_delivered() {
+            return pb_1.Message.getField(this, 9) != null;
+        }
+        get stats() {
+            return pb_1.Message.getRepeatedWrapperField(this, IdleSessionSummary.Stat, 10) as IdleSessionSummary.Stat[];
+        }
+        set stats(value: IdleSessionSummary.Stat[]) {
+            pb_1.Message.setRepeatedWrapperField(this, 10, value);
+        }
+        get farm_index() {
+            return pb_1.Message.getFieldWithDefault(this, 7, 0) as number;
+        }
+        set farm_index(value: number) {
+            pb_1.Message.setField(this, 7, value);
+        }
+        get has_farm_index() {
+            return pb_1.Message.getField(this, 7) != null;
+        }
+        static fromObject(data: {
+            success?: boolean;
+            time_away?: number;
+            time_simulated?: number;
+            silos_owned?: number;
+            average_elr?: number;
+            average_msr?: number;
+            average_egg_delivery_rate?: number;
+            last_egg_delivery_rate?: number;
+            eggs_delivered?: number;
+            stats?: ReturnType<typeof IdleSessionSummary.Stat.prototype.toObject>[];
+            farm_index?: number;
+        }): IdleSessionSummary {
+            const message = new IdleSessionSummary({
+                stats: data.stats.map(item => IdleSessionSummary.Stat.fromObject(item))
+            });
+            if (data.success != null) {
+                message.success = data.success;
+            }
+            if (data.time_away != null) {
+                message.time_away = data.time_away;
+            }
+            if (data.time_simulated != null) {
+                message.time_simulated = data.time_simulated;
+            }
+            if (data.silos_owned != null) {
+                message.silos_owned = data.silos_owned;
+            }
+            if (data.average_elr != null) {
+                message.average_elr = data.average_elr;
+            }
+            if (data.average_msr != null) {
+                message.average_msr = data.average_msr;
+            }
+            if (data.average_egg_delivery_rate != null) {
+                message.average_egg_delivery_rate = data.average_egg_delivery_rate;
+            }
+            if (data.last_egg_delivery_rate != null) {
+                message.last_egg_delivery_rate = data.last_egg_delivery_rate;
+            }
+            if (data.eggs_delivered != null) {
+                message.eggs_delivered = data.eggs_delivered;
+            }
+            if (data.farm_index != null) {
+                message.farm_index = data.farm_index;
+            }
+            return message;
+        }
+        toObject() {
+            const data: {
+                success?: boolean;
+                time_away?: number;
+                time_simulated?: number;
+                silos_owned?: number;
+                average_elr?: number;
+                average_msr?: number;
+                average_egg_delivery_rate?: number;
+                last_egg_delivery_rate?: number;
+                eggs_delivered?: number;
+                stats?: ReturnType<typeof IdleSessionSummary.Stat.prototype.toObject>[];
+                farm_index?: number;
+            } = {};
+            if (this.success != null) {
+                data.success = this.success;
+            }
+            if (this.time_away != null) {
+                data.time_away = this.time_away;
+            }
+            if (this.time_simulated != null) {
+                data.time_simulated = this.time_simulated;
+            }
+            if (this.silos_owned != null) {
+                data.silos_owned = this.silos_owned;
+            }
+            if (this.average_elr != null) {
+                data.average_elr = this.average_elr;
+            }
+            if (this.average_msr != null) {
+                data.average_msr = this.average_msr;
+            }
+            if (this.average_egg_delivery_rate != null) {
+                data.average_egg_delivery_rate = this.average_egg_delivery_rate;
+            }
+            if (this.last_egg_delivery_rate != null) {
+                data.last_egg_delivery_rate = this.last_egg_delivery_rate;
+            }
+            if (this.eggs_delivered != null) {
+                data.eggs_delivered = this.eggs_delivered;
+            }
+            if (this.stats != null) {
+                data.stats = this.stats.map((item: IdleSessionSummary.Stat) => item.toObject());
+            }
+            if (this.farm_index != null) {
+                data.farm_index = this.farm_index;
+            }
+            return data;
+        }
+        serialize(): Uint8Array;
+        serialize(w: pb_1.BinaryWriter): void;
+        serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+            const writer = w || new pb_1.BinaryWriter();
+            if (this.has_success)
+                writer.writeBool(11, this.success);
+            if (this.has_time_away)
+                writer.writeDouble(1, this.time_away);
+            if (this.has_time_simulated)
+                writer.writeDouble(2, this.time_simulated);
+            if (this.has_silos_owned)
+                writer.writeUint32(3, this.silos_owned);
+            if (this.has_average_elr)
+                writer.writeDouble(4, this.average_elr);
+            if (this.has_average_msr)
+                writer.writeDouble(5, this.average_msr);
+            if (this.has_average_egg_delivery_rate)
+                writer.writeDouble(6, this.average_egg_delivery_rate);
+            if (this.has_last_egg_delivery_rate)
+                writer.writeDouble(8, this.last_egg_delivery_rate);
+            if (this.has_eggs_delivered)
+                writer.writeDouble(9, this.eggs_delivered);
+            if (this.stats.length)
+                writer.writeRepeatedMessage(10, this.stats, (item: IdleSessionSummary.Stat) => item.serialize(writer));
+            if (this.has_farm_index)
+                writer.writeUint32(7, this.farm_index);
+            if (!w)
+                return writer.getResultBuffer();
+        }
+        static deserialize(bytes: Uint8Array | pb_1.BinaryReader): IdleSessionSummary {
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new IdleSessionSummary();
+            while (reader.nextField()) {
+                if (reader.isEndGroup())
+                    break;
+                switch (reader.getFieldNumber()) {
+                    case 11:
+                        message.success = reader.readBool();
+                        break;
+                    case 1:
+                        message.time_away = reader.readDouble();
+                        break;
+                    case 2:
+                        message.time_simulated = reader.readDouble();
+                        break;
+                    case 3:
+                        message.silos_owned = reader.readUint32();
+                        break;
+                    case 4:
+                        message.average_elr = reader.readDouble();
+                        break;
+                    case 5:
+                        message.average_msr = reader.readDouble();
+                        break;
+                    case 6:
+                        message.average_egg_delivery_rate = reader.readDouble();
+                        break;
+                    case 8:
+                        message.last_egg_delivery_rate = reader.readDouble();
+                        break;
+                    case 9:
+                        message.eggs_delivered = reader.readDouble();
+                        break;
+                    case 10:
+                        reader.readMessage(message.stats, () => pb_1.Message.addToRepeatedWrapperField(message, 10, IdleSessionSummary.Stat.deserialize(reader), IdleSessionSummary.Stat));
+                        break;
+                    case 7:
+                        message.farm_index = reader.readUint32();
+                        break;
+                    default: reader.skipField();
+                }
+            }
+            return message;
+        }
+        serializeBinary(): Uint8Array {
+            return this.serialize();
+        }
+        static deserializeBinary(bytes: Uint8Array): IdleSessionSummary {
+            return IdleSessionSummary.deserialize(bytes);
+        }
+    }
+    export namespace IdleSessionSummary {
+        export class Stat extends pb_1.Message {
+            #one_of_decls: number[][] = [];
+            constructor(data?: any[] | {
+                name?: string;
+                min?: number;
+                max?: number;
+                avg?: number;
+                total_time?: number;
+            }) {
+                super();
+                pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+                if (!Array.isArray(data) && typeof data == "object") {
+                    if ("name" in data && data.name != undefined) {
+                        this.name = data.name;
+                    }
+                    if ("min" in data && data.min != undefined) {
+                        this.min = data.min;
+                    }
+                    if ("max" in data && data.max != undefined) {
+                        this.max = data.max;
+                    }
+                    if ("avg" in data && data.avg != undefined) {
+                        this.avg = data.avg;
+                    }
+                    if ("total_time" in data && data.total_time != undefined) {
+                        this.total_time = data.total_time;
+                    }
+                }
+            }
+            get name() {
+                return pb_1.Message.getFieldWithDefault(this, 1, "") as string;
+            }
+            set name(value: string) {
+                pb_1.Message.setField(this, 1, value);
+            }
+            get has_name() {
+                return pb_1.Message.getField(this, 1) != null;
+            }
+            get min() {
+                return pb_1.Message.getFieldWithDefault(this, 2, 0) as number;
+            }
+            set min(value: number) {
+                pb_1.Message.setField(this, 2, value);
+            }
+            get has_min() {
+                return pb_1.Message.getField(this, 2) != null;
+            }
+            get max() {
+                return pb_1.Message.getFieldWithDefault(this, 3, 0) as number;
+            }
+            set max(value: number) {
+                pb_1.Message.setField(this, 3, value);
+            }
+            get has_max() {
+                return pb_1.Message.getField(this, 3) != null;
+            }
+            get avg() {
+                return pb_1.Message.getFieldWithDefault(this, 4, 0) as number;
+            }
+            set avg(value: number) {
+                pb_1.Message.setField(this, 4, value);
+            }
+            get has_avg() {
+                return pb_1.Message.getField(this, 4) != null;
+            }
+            get total_time() {
+                return pb_1.Message.getFieldWithDefault(this, 5, 0) as number;
+            }
+            set total_time(value: number) {
+                pb_1.Message.setField(this, 5, value);
+            }
+            get has_total_time() {
+                return pb_1.Message.getField(this, 5) != null;
+            }
+            static fromObject(data: {
+                name?: string;
+                min?: number;
+                max?: number;
+                avg?: number;
+                total_time?: number;
+            }): Stat {
+                const message = new Stat({});
+                if (data.name != null) {
+                    message.name = data.name;
+                }
+                if (data.min != null) {
+                    message.min = data.min;
+                }
+                if (data.max != null) {
+                    message.max = data.max;
+                }
+                if (data.avg != null) {
+                    message.avg = data.avg;
+                }
+                if (data.total_time != null) {
+                    message.total_time = data.total_time;
+                }
+                return message;
+            }
+            toObject() {
+                const data: {
+                    name?: string;
+                    min?: number;
+                    max?: number;
+                    avg?: number;
+                    total_time?: number;
+                } = {};
+                if (this.name != null) {
+                    data.name = this.name;
+                }
+                if (this.min != null) {
+                    data.min = this.min;
+                }
+                if (this.max != null) {
+                    data.max = this.max;
+                }
+                if (this.avg != null) {
+                    data.avg = this.avg;
+                }
+                if (this.total_time != null) {
+                    data.total_time = this.total_time;
+                }
+                return data;
+            }
+            serialize(): Uint8Array;
+            serialize(w: pb_1.BinaryWriter): void;
+            serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+                const writer = w || new pb_1.BinaryWriter();
+                if (this.has_name && this.name.length)
+                    writer.writeString(1, this.name);
+                if (this.has_min)
+                    writer.writeDouble(2, this.min);
+                if (this.has_max)
+                    writer.writeDouble(3, this.max);
+                if (this.has_avg)
+                    writer.writeDouble(4, this.avg);
+                if (this.has_total_time)
+                    writer.writeDouble(5, this.total_time);
+                if (!w)
+                    return writer.getResultBuffer();
+            }
+            static deserialize(bytes: Uint8Array | pb_1.BinaryReader): Stat {
+                const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new Stat();
+                while (reader.nextField()) {
+                    if (reader.isEndGroup())
+                        break;
+                    switch (reader.getFieldNumber()) {
+                        case 1:
+                            message.name = reader.readString();
+                            break;
+                        case 2:
+                            message.min = reader.readDouble();
+                            break;
+                        case 3:
+                            message.max = reader.readDouble();
+                            break;
+                        case 4:
+                            message.avg = reader.readDouble();
+                            break;
+                        case 5:
+                            message.total_time = reader.readDouble();
+                            break;
+                        default: reader.skipField();
+                    }
+                }
+                return message;
+            }
+            serializeBinary(): Uint8Array {
+                return this.serialize();
+            }
+            static deserializeBinary(bytes: Uint8Array): Stat {
+                return Stat.deserialize(bytes);
+            }
+        }
+    }
     export class ContractCoopStatusUpdateRequest extends pb_1.Message {
         #one_of_decls: number[][] = [];
         constructor(data?: any[] | {
@@ -21872,6 +23263,7 @@ export namespace ei {
             amount?: number;
             rate?: number;
             time_cheats_detected?: number;
+            total_step_time?: number;
             soul_power?: number;
             eop?: number;
             boost_tokens?: number;
@@ -21879,6 +23271,7 @@ export namespace ei {
             hide_cc_status?: boolean;
             production_params?: FarmProductionParams;
             farm_info?: PlayerFarmInfo;
+            last_idle_summary?: IdleSessionSummary;
             egg_laying_rate_buff?: number;
             earnings_buff?: number;
         }) {
@@ -21909,6 +23302,9 @@ export namespace ei {
                 if ("time_cheats_detected" in data && data.time_cheats_detected != undefined) {
                     this.time_cheats_detected = data.time_cheats_detected;
                 }
+                if ("total_step_time" in data && data.total_step_time != undefined) {
+                    this.total_step_time = data.total_step_time;
+                }
                 if ("soul_power" in data && data.soul_power != undefined) {
                     this.soul_power = data.soul_power;
                 }
@@ -21929,6 +23325,9 @@ export namespace ei {
                 }
                 if ("farm_info" in data && data.farm_info != undefined) {
                     this.farm_info = data.farm_info;
+                }
+                if ("last_idle_summary" in data && data.last_idle_summary != undefined) {
+                    this.last_idle_summary = data.last_idle_summary;
                 }
                 if ("egg_laying_rate_buff" in data && data.egg_laying_rate_buff != undefined) {
                     this.egg_laying_rate_buff = data.egg_laying_rate_buff;
@@ -22010,6 +23409,15 @@ export namespace ei {
         get has_time_cheats_detected() {
             return pb_1.Message.getField(this, 6) != null;
         }
+        get total_step_time() {
+            return pb_1.Message.getFieldWithDefault(this, 19, 0) as number;
+        }
+        set total_step_time(value: number) {
+            pb_1.Message.setField(this, 19, value);
+        }
+        get has_total_step_time() {
+            return pb_1.Message.getField(this, 19) != null;
+        }
         get soul_power() {
             return pb_1.Message.getFieldWithDefault(this, 7, 0) as number;
         }
@@ -22073,6 +23481,15 @@ export namespace ei {
         get has_farm_info() {
             return pb_1.Message.getField(this, 16) != null;
         }
+        get last_idle_summary() {
+            return pb_1.Message.getWrapperField(this, IdleSessionSummary, 18) as IdleSessionSummary;
+        }
+        set last_idle_summary(value: IdleSessionSummary) {
+            pb_1.Message.setWrapperField(this, 18, value);
+        }
+        get has_last_idle_summary() {
+            return pb_1.Message.getField(this, 18) != null;
+        }
         get egg_laying_rate_buff() {
             return pb_1.Message.getFieldWithDefault(this, 10, 1) as number;
         }
@@ -22100,6 +23517,7 @@ export namespace ei {
             amount?: number;
             rate?: number;
             time_cheats_detected?: number;
+            total_step_time?: number;
             soul_power?: number;
             eop?: number;
             boost_tokens?: number;
@@ -22107,6 +23525,7 @@ export namespace ei {
             hide_cc_status?: boolean;
             production_params?: ReturnType<typeof FarmProductionParams.prototype.toObject>;
             farm_info?: ReturnType<typeof PlayerFarmInfo.prototype.toObject>;
+            last_idle_summary?: ReturnType<typeof IdleSessionSummary.prototype.toObject>;
             egg_laying_rate_buff?: number;
             earnings_buff?: number;
         }): ContractCoopStatusUpdateRequest {
@@ -22135,6 +23554,9 @@ export namespace ei {
             if (data.time_cheats_detected != null) {
                 message.time_cheats_detected = data.time_cheats_detected;
             }
+            if (data.total_step_time != null) {
+                message.total_step_time = data.total_step_time;
+            }
             if (data.soul_power != null) {
                 message.soul_power = data.soul_power;
             }
@@ -22156,6 +23578,9 @@ export namespace ei {
             if (data.farm_info != null) {
                 message.farm_info = PlayerFarmInfo.fromObject(data.farm_info);
             }
+            if (data.last_idle_summary != null) {
+                message.last_idle_summary = IdleSessionSummary.fromObject(data.last_idle_summary);
+            }
             if (data.egg_laying_rate_buff != null) {
                 message.egg_laying_rate_buff = data.egg_laying_rate_buff;
             }
@@ -22174,6 +23599,7 @@ export namespace ei {
                 amount?: number;
                 rate?: number;
                 time_cheats_detected?: number;
+                total_step_time?: number;
                 soul_power?: number;
                 eop?: number;
                 boost_tokens?: number;
@@ -22181,6 +23607,7 @@ export namespace ei {
                 hide_cc_status?: boolean;
                 production_params?: ReturnType<typeof FarmProductionParams.prototype.toObject>;
                 farm_info?: ReturnType<typeof PlayerFarmInfo.prototype.toObject>;
+                last_idle_summary?: ReturnType<typeof IdleSessionSummary.prototype.toObject>;
                 egg_laying_rate_buff?: number;
                 earnings_buff?: number;
             } = {};
@@ -22208,6 +23635,9 @@ export namespace ei {
             if (this.time_cheats_detected != null) {
                 data.time_cheats_detected = this.time_cheats_detected;
             }
+            if (this.total_step_time != null) {
+                data.total_step_time = this.total_step_time;
+            }
             if (this.soul_power != null) {
                 data.soul_power = this.soul_power;
             }
@@ -22228,6 +23658,9 @@ export namespace ei {
             }
             if (this.farm_info != null) {
                 data.farm_info = this.farm_info.toObject();
+            }
+            if (this.last_idle_summary != null) {
+                data.last_idle_summary = this.last_idle_summary.toObject();
             }
             if (this.egg_laying_rate_buff != null) {
                 data.egg_laying_rate_buff = this.egg_laying_rate_buff;
@@ -22257,6 +23690,8 @@ export namespace ei {
                 writer.writeDouble(5, this.rate);
             if (this.has_time_cheats_detected)
                 writer.writeUint32(6, this.time_cheats_detected);
+            if (this.has_total_step_time)
+                writer.writeDouble(19, this.total_step_time);
             if (this.has_soul_power)
                 writer.writeDouble(7, this.soul_power);
             if (this.has_eop)
@@ -22271,6 +23706,8 @@ export namespace ei {
                 writer.writeMessage(14, this.production_params, () => this.production_params.serialize(writer));
             if (this.has_farm_info)
                 writer.writeMessage(16, this.farm_info, () => this.farm_info.serialize(writer));
+            if (this.has_last_idle_summary)
+                writer.writeMessage(18, this.last_idle_summary, () => this.last_idle_summary.serialize(writer));
             if (this.has_egg_laying_rate_buff)
                 writer.writeDouble(10, this.egg_laying_rate_buff);
             if (this.has_earnings_buff)
@@ -22308,6 +23745,9 @@ export namespace ei {
                     case 6:
                         message.time_cheats_detected = reader.readUint32();
                         break;
+                    case 19:
+                        message.total_step_time = reader.readDouble();
+                        break;
                     case 7:
                         message.soul_power = reader.readDouble();
                         break;
@@ -22328,6 +23768,9 @@ export namespace ei {
                         break;
                     case 16:
                         reader.readMessage(message.farm_info, () => message.farm_info = PlayerFarmInfo.deserialize(reader));
+                        break;
+                    case 18:
+                        reader.readMessage(message.last_idle_summary, () => message.last_idle_summary = IdleSessionSummary.deserialize(reader));
                         break;
                     case 10:
                         message.egg_laying_rate_buff = reader.readDouble();
@@ -26184,6 +27627,7 @@ export namespace ei {
                 new_player_event_duration?: number;
                 contracts_club_available?: boolean;
                 contracts_beta?: boolean;
+                season_rewards_enabled?: boolean;
             }) {
                 super();
                 pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
@@ -26229,6 +27673,9 @@ export namespace ei {
                     }
                     if ("contracts_beta" in data && data.contracts_beta != undefined) {
                         this.contracts_beta = data.contracts_beta;
+                    }
+                    if ("season_rewards_enabled" in data && data.season_rewards_enabled != undefined) {
+                        this.season_rewards_enabled = data.season_rewards_enabled;
                     }
                 }
             }
@@ -26358,6 +27805,15 @@ export namespace ei {
             get has_contracts_beta() {
                 return pb_1.Message.getField(this, 13) != null;
             }
+            get season_rewards_enabled() {
+                return pb_1.Message.getFieldWithDefault(this, 15, false) as boolean;
+            }
+            set season_rewards_enabled(value: boolean) {
+                pb_1.Message.setField(this, 15, value);
+            }
+            get has_season_rewards_enabled() {
+                return pb_1.Message.getField(this, 15) != null;
+            }
             static fromObject(data: {
                 ask_to_track?: boolean;
                 ask_to_track_min_soul_eggs?: number;
@@ -26373,6 +27829,7 @@ export namespace ei {
                 new_player_event_duration?: number;
                 contracts_club_available?: boolean;
                 contracts_beta?: boolean;
+                season_rewards_enabled?: boolean;
             }): MiscConfig {
                 const message = new MiscConfig({});
                 if (data.ask_to_track != null) {
@@ -26417,6 +27874,9 @@ export namespace ei {
                 if (data.contracts_beta != null) {
                     message.contracts_beta = data.contracts_beta;
                 }
+                if (data.season_rewards_enabled != null) {
+                    message.season_rewards_enabled = data.season_rewards_enabled;
+                }
                 return message;
             }
             toObject() {
@@ -26435,6 +27895,7 @@ export namespace ei {
                     new_player_event_duration?: number;
                     contracts_club_available?: boolean;
                     contracts_beta?: boolean;
+                    season_rewards_enabled?: boolean;
                 } = {};
                 if (this.ask_to_track != null) {
                     data.ask_to_track = this.ask_to_track;
@@ -26478,6 +27939,9 @@ export namespace ei {
                 if (this.contracts_beta != null) {
                     data.contracts_beta = this.contracts_beta;
                 }
+                if (this.season_rewards_enabled != null) {
+                    data.season_rewards_enabled = this.season_rewards_enabled;
+                }
                 return data;
             }
             serialize(): Uint8Array;
@@ -26512,6 +27976,8 @@ export namespace ei {
                     writer.writeBool(12, this.contracts_club_available);
                 if (this.has_contracts_beta)
                     writer.writeBool(13, this.contracts_beta);
+                if (this.has_season_rewards_enabled)
+                    writer.writeBool(15, this.season_rewards_enabled);
                 if (!w)
                     return writer.getResultBuffer();
             }
@@ -26562,6 +28028,9 @@ export namespace ei {
                             break;
                         case 13:
                             message.contracts_beta = reader.readBool();
+                            break;
+                        case 15:
+                            message.season_rewards_enabled = reader.readBool();
                             break;
                         default: reader.skipField();
                     }
@@ -33252,6 +34721,154 @@ export namespace ei {
         }
         static deserializeBinary(bytes: Uint8Array): CollectContractArtifactRewardsRequest {
             return CollectContractArtifactRewardsRequest.deserialize(bytes);
+        }
+    }
+    export class CollectSeasonArtifactRewardsRequest extends pb_1.Message {
+        #one_of_decls: number[][] = [];
+        constructor(data?: any[] | {
+            rinfo?: BasicRequestInfo;
+            season_identifier?: string;
+            cxp?: number;
+            best_ship?: MissionInfo.Spaceship;
+        }) {
+            super();
+            pb_1.Message.initialize(this, Array.isArray(data) ? data : [], 0, -1, [], this.#one_of_decls);
+            if (!Array.isArray(data) && typeof data == "object") {
+                if ("rinfo" in data && data.rinfo != undefined) {
+                    this.rinfo = data.rinfo;
+                }
+                if ("season_identifier" in data && data.season_identifier != undefined) {
+                    this.season_identifier = data.season_identifier;
+                }
+                if ("cxp" in data && data.cxp != undefined) {
+                    this.cxp = data.cxp;
+                }
+                if ("best_ship" in data && data.best_ship != undefined) {
+                    this.best_ship = data.best_ship;
+                }
+            }
+        }
+        get rinfo() {
+            return pb_1.Message.getWrapperField(this, BasicRequestInfo, 1) as BasicRequestInfo;
+        }
+        set rinfo(value: BasicRequestInfo) {
+            pb_1.Message.setWrapperField(this, 1, value);
+        }
+        get has_rinfo() {
+            return pb_1.Message.getField(this, 1) != null;
+        }
+        get season_identifier() {
+            return pb_1.Message.getFieldWithDefault(this, 2, "") as string;
+        }
+        set season_identifier(value: string) {
+            pb_1.Message.setField(this, 2, value);
+        }
+        get has_season_identifier() {
+            return pb_1.Message.getField(this, 2) != null;
+        }
+        get cxp() {
+            return pb_1.Message.getFieldWithDefault(this, 3, 0) as number;
+        }
+        set cxp(value: number) {
+            pb_1.Message.setField(this, 3, value);
+        }
+        get has_cxp() {
+            return pb_1.Message.getField(this, 3) != null;
+        }
+        get best_ship() {
+            return pb_1.Message.getFieldWithDefault(this, 4, 0) as MissionInfo.Spaceship;
+        }
+        set best_ship(value: MissionInfo.Spaceship) {
+            pb_1.Message.setField(this, 4, value);
+        }
+        get has_best_ship() {
+            return pb_1.Message.getField(this, 4) != null;
+        }
+        static fromObject(data: {
+            rinfo?: ReturnType<typeof BasicRequestInfo.prototype.toObject>;
+            season_identifier?: string;
+            cxp?: number;
+            best_ship?: MissionInfo.Spaceship;
+        }): CollectSeasonArtifactRewardsRequest {
+            const message = new CollectSeasonArtifactRewardsRequest({});
+            if (data.rinfo != null) {
+                message.rinfo = BasicRequestInfo.fromObject(data.rinfo);
+            }
+            if (data.season_identifier != null) {
+                message.season_identifier = data.season_identifier;
+            }
+            if (data.cxp != null) {
+                message.cxp = data.cxp;
+            }
+            if (data.best_ship != null) {
+                message.best_ship = data.best_ship;
+            }
+            return message;
+        }
+        toObject() {
+            const data: {
+                rinfo?: ReturnType<typeof BasicRequestInfo.prototype.toObject>;
+                season_identifier?: string;
+                cxp?: number;
+                best_ship?: MissionInfo.Spaceship;
+            } = {};
+            if (this.rinfo != null) {
+                data.rinfo = this.rinfo.toObject();
+            }
+            if (this.season_identifier != null) {
+                data.season_identifier = this.season_identifier;
+            }
+            if (this.cxp != null) {
+                data.cxp = this.cxp;
+            }
+            if (this.best_ship != null) {
+                data.best_ship = this.best_ship;
+            }
+            return data;
+        }
+        serialize(): Uint8Array;
+        serialize(w: pb_1.BinaryWriter): void;
+        serialize(w?: pb_1.BinaryWriter): Uint8Array | void {
+            const writer = w || new pb_1.BinaryWriter();
+            if (this.has_rinfo)
+                writer.writeMessage(1, this.rinfo, () => this.rinfo.serialize(writer));
+            if (this.has_season_identifier && this.season_identifier.length)
+                writer.writeString(2, this.season_identifier);
+            if (this.has_cxp)
+                writer.writeDouble(3, this.cxp);
+            if (this.has_best_ship)
+                writer.writeEnum(4, this.best_ship);
+            if (!w)
+                return writer.getResultBuffer();
+        }
+        static deserialize(bytes: Uint8Array | pb_1.BinaryReader): CollectSeasonArtifactRewardsRequest {
+            const reader = bytes instanceof pb_1.BinaryReader ? bytes : new pb_1.BinaryReader(bytes), message = new CollectSeasonArtifactRewardsRequest();
+            while (reader.nextField()) {
+                if (reader.isEndGroup())
+                    break;
+                switch (reader.getFieldNumber()) {
+                    case 1:
+                        reader.readMessage(message.rinfo, () => message.rinfo = BasicRequestInfo.deserialize(reader));
+                        break;
+                    case 2:
+                        message.season_identifier = reader.readString();
+                        break;
+                    case 3:
+                        message.cxp = reader.readDouble();
+                        break;
+                    case 4:
+                        message.best_ship = reader.readEnum();
+                        break;
+                    default: reader.skipField();
+                }
+            }
+            return message;
+        }
+        serializeBinary(): Uint8Array {
+            return this.serialize();
+        }
+        static deserializeBinary(bytes: Uint8Array): CollectSeasonArtifactRewardsRequest {
+            return CollectSeasonArtifactRewardsRequest.deserialize(bytes);
         }
     }
     export class CraftArtifactRequest extends pb_1.Message {
@@ -42171,6 +43788,7 @@ export namespace ei {
             overall_status?: UserVerificationAnalysis.Status;
             start_time?: number;
             completion_time?: number;
+            verification_count?: number;
             num_prestiges?: number;
             soul_eggs?: number;
             eggs_of_prophecy?: number;
@@ -42216,6 +43834,9 @@ export namespace ei {
                 }
                 if ("completion_time" in data && data.completion_time != undefined) {
                     this.completion_time = data.completion_time;
+                }
+                if ("verification_count" in data && data.verification_count != undefined) {
+                    this.verification_count = data.verification_count;
                 }
                 if ("num_prestiges" in data && data.num_prestiges != undefined) {
                     this.num_prestiges = data.num_prestiges;
@@ -42342,6 +43963,15 @@ export namespace ei {
         }
         get has_completion_time() {
             return pb_1.Message.getField(this, 3) != null;
+        }
+        get verification_count() {
+            return pb_1.Message.getFieldWithDefault(this, 37, 0) as number;
+        }
+        set verification_count(value: number) {
+            pb_1.Message.setField(this, 37, value);
+        }
+        get has_verification_count() {
+            return pb_1.Message.getField(this, 37) != null;
         }
         get num_prestiges() {
             return pb_1.Message.getFieldWithDefault(this, 14, 0) as number;
@@ -42641,6 +44271,7 @@ export namespace ei {
             overall_status?: UserVerificationAnalysis.Status;
             start_time?: number;
             completion_time?: number;
+            verification_count?: number;
             num_prestiges?: number;
             soul_eggs?: number;
             eggs_of_prophecy?: number;
@@ -42686,6 +44317,9 @@ export namespace ei {
             }
             if (data.completion_time != null) {
                 message.completion_time = data.completion_time;
+            }
+            if (data.verification_count != null) {
+                message.verification_count = data.verification_count;
             }
             if (data.num_prestiges != null) {
                 message.num_prestiges = data.num_prestiges;
@@ -42790,6 +44424,7 @@ export namespace ei {
                 overall_status?: UserVerificationAnalysis.Status;
                 start_time?: number;
                 completion_time?: number;
+                verification_count?: number;
                 num_prestiges?: number;
                 soul_eggs?: number;
                 eggs_of_prophecy?: number;
@@ -42834,6 +44469,9 @@ export namespace ei {
             }
             if (this.completion_time != null) {
                 data.completion_time = this.completion_time;
+            }
+            if (this.verification_count != null) {
+                data.verification_count = this.verification_count;
             }
             if (this.num_prestiges != null) {
                 data.num_prestiges = this.num_prestiges;
@@ -42943,6 +44581,8 @@ export namespace ei {
                 writer.writeDouble(2, this.start_time);
             if (this.has_completion_time)
                 writer.writeDouble(3, this.completion_time);
+            if (this.has_verification_count)
+                writer.writeInt32(37, this.verification_count);
             if (this.has_num_prestiges)
                 writer.writeDouble(14, this.num_prestiges);
             if (this.has_soul_eggs)
@@ -43026,6 +44666,9 @@ export namespace ei {
                         break;
                     case 3:
                         message.completion_time = reader.readDouble();
+                        break;
+                    case 37:
+                        message.verification_count = reader.readInt32();
                         break;
                     case 14:
                         message.num_prestiges = reader.readDouble();
